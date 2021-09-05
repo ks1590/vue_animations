@@ -1,17 +1,47 @@
 <template>
   <div class="about">
-    <h1>About</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum aperiam officia possimus delectus inventore quod quisquam culpa voluptas iusto, quae maiores quo dolorum, corporis laboriosam a dolore consequatur assumenda nam!</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum aperiam officia possimus delectus inventore quod quisquam culpa voluptas iusto, quae maiores quo dolorum, corporis laboriosam a dolore consequatur assumenda nam!</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum aperiam officia possimus delectus inventore quod quisquam culpa voluptas iusto, quae maiores quo dolorum, corporis laboriosam a dolore consequatur assumenda nam!</p>
+    <transition
+      appear
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @after-enter="afterEnter"
+      >
+      <h1>About</h1>
+    </transition>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum aperiam officia possimus delectus inventore quod quisquam culpa voluptas iusto, quae maiores quo dolorum, corporis laboriosam a dolore consequatur assumenda nam!</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum aperiam officia possimus delectus inventore quod quisquam culpa voluptas iusto, quae maiores quo dolorum, corporis laboriosam a dolore consequatur assumenda nam!</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum aperiam officia possimus delectus inventore quod quisquam culpa voluptas iusto, quae maiores quo dolorum, corporis laboriosam a dolore consequatur assumenda nam!</p>
   </div>
 </template>
 
 <script>
+import { ref } from 'vue'
+import gsap from 'gsap'
 
 export default {
   setup() {
+    const beforeEnter = (e) => {
+      console.log("before enter");
+      e.style.transform = 'translateY(-60px)'
+      e.style.opacity = 0
+    }
 
+    const enter = (e, done) => {
+      console.log("starting to enter");
+      gsap.to(e, {
+        duration: 3,
+        y: 0,
+        opacity: 1,
+        ease: "bounce.out",
+        onComplete: done
+      })
+    }
+
+    const afterEnter = () => {
+      console.log("after enter");
+    }
+
+    return { beforeEnter, enter, afterEnter} 
   }
 }
 </script>
